@@ -1,11 +1,21 @@
+const sendError = require('../helpers/sendError');
 const model = require('../models');
 
 const listAll = async () => {
-  const produtos = await model.products.listAll();
+  const products = await model.products.listAll();
 
-  return produtos;
+  return products;
+};
+
+const findById = async (id) => {
+  const product = await model.products.findById(id);
+
+  if (product === undefined) { throw sendError(404, 'Product not found'); }
+
+  return product;
 };
 
 module.exports = {
   listAll,
+  findById,
 };
