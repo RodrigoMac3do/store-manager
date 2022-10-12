@@ -18,7 +18,25 @@ const findById = async (req, res, next) => {
   }
 };
 
+const insert = async (req, res, next) => {
+  const { name } = req.body;
+  const products = await service.products.listAll();
+
+  try {
+    await service.products.insert(name);
+    const newProduct = {
+      id: products.length + 1,
+      ...req.body,
+    };
+
+    res.status(201).json(newProduct);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   listAll,
   findById,
+  insert,
 };
