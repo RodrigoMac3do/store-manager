@@ -10,7 +10,9 @@ const listAll = async () => {
 const findById = async (id) => {
   const product = await model.products.findById(id);
 
-  if (product === undefined) { throw sendError(404, 'Product not found'); }
+  if (product === undefined) {
+    throw sendError(404, 'Product not found');
+  }
 
   return product;
 };
