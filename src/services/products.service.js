@@ -23,8 +23,15 @@ const insert = async (name) => {
   return newProduct;
 };
 
+const updateById = async ({ id, name }) => {
+  const update = await model.products.updateById({ id, name });
+
+  return update;
+};
+
 module.exports = {
   listAll,
   findById,
   insert,
+  updateById,
 };
