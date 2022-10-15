@@ -9,7 +9,8 @@ router.get('/:id', controller.sales.findById);
 router.post(
   '/',
   middleware.quantity,
-  middleware.product,
+  middleware.product.keyProduct,
+  middleware.product.valuesProduct,
   controller.sales.insert,
 );
 
