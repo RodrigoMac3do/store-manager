@@ -7,5 +7,10 @@ const router = express.Router();
 router.get('/', controller.products.listAll);
 router.get('/:id', controller.products.findById);
 router.post('/', middleware.name, controller.products.insert);
+router.put(
+  '/:id',
+  middleware.nameProducts,
+  controller.products.updateById,
+);
 
 module.exports = router;
