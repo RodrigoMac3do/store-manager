@@ -1,3 +1,4 @@
+// const snakeize = require('snakeize');
 const connection = require('./connection');
 
 const listAll = async () => {
@@ -40,7 +41,31 @@ ORDER BY
   return sale;
 };
 
+const insert = async (produtos) => {
+  const insertSale = 'INSERT INTO StoreManager.sales () VALUES ()';
+
+  const [{ insertId }] = await connection.execute(insertSale);
+
+  const insertProduct = `
+INSERT INTO StoreManager.sales_products
+  (product_id, quantity,sale_id)
+VALUES
+  ?
+`;
+
+  const arrayProdutos = produtos.map((produto) => [
+    produto.productId,
+    produto.quantity,
+    insertId,
+  ]);
+
+  await connection.query(insertProduct, [arrayProdutos]);
+
+  return insertId;
+};
+
 module.exports = {
   listAll,
   findById,
+  insert,
 };
