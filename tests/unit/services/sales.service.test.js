@@ -23,9 +23,11 @@ describe("Testes de unidade do service de sales", () => {
     it("Listar sale por id sem sucesso", async () => {
       sinon.stub(model.sales, "findById").resolves([]);
 
-      const result = await service.sales.findById(0);
-
-      expect(result).to.be.deep.equal([]);
+      try {
+        await service.sales.findById(0);
+      } catch (error) {
+        expect(error.status).to.be.deep.equal(404);
+      }
     });
     beforeEach(sinon.restore);
   });

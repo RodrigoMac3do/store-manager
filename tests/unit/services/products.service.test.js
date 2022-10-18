@@ -22,10 +22,12 @@ describe("Testes de unidade do service de produtos", () => {
     });
     it("Listar produto por id sem sucesso", async () => {
       sinon.stub(model.products, "findById").resolves([]);
-
-      const result = await service.products.findById(0);
-     
-      expect(result).to.be.deep.equal([]);
+      
+      try {
+        await service.products.findById(0);
+      } catch (error) {
+        expect(error.status).to.be.deep.equal(404);
+      }
     });
     beforeEach(sinon.restore);
   });
