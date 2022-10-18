@@ -1,4 +1,3 @@
-// const snakeize = require('snakeize');
 const connection = require('./connection');
 
 const listAll = async () => {
@@ -48,7 +47,7 @@ const insert = async (produtos) => {
 
   const insertProduct = `
 INSERT INTO StoreManager.sales_products
-  (product_id, quantity,sale_id)
+  (product_id, quantity, sale_id)
 VALUES
   ?
 `;
@@ -58,7 +57,7 @@ VALUES
     produto.quantity,
     insertId,
   ]);
-
+  
   await connection.query(insertProduct, [arrayProdutos]);
 
   return insertId;

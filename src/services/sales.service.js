@@ -1,4 +1,4 @@
-const sendError = require('../helpers/sendError');
+const sendError = require('../utils/sendError');
 const model = require('../models');
 
 const listAll = async () => {
