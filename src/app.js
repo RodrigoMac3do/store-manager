@@ -14,7 +14,6 @@ app.use('/products', router.products);
 app.use('/sales', router.sales);
 
 app.use((error, _req, res, _next) => {
-  console.log('erros', error.message);
   if (error.status) {
     return res.status(error.status).json({ message: error.message });
   }
