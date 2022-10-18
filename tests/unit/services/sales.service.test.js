@@ -14,7 +14,7 @@ describe("Testes de unidade do service de sales", () => {
       expect(result).to.be.deep.equal(allSales);
     });
     it("Listar sale por id com sucesso", async () => {
-      sinon.stub(model.sales, "findById").resolves(allSales);
+      sinon.stub(model.sales, "findById").resolves(allSales[0]);
 
       const result = await service.sales.findById(1);
 
