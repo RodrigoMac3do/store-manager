@@ -24,6 +24,21 @@ describe("Testes de unidade do controller de produtos", () => {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(allProductsResponse);
     });
+    it("Listar produto por id com sucesso", async function () {
+      const req = { params: { id: 1 } };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(service.products, "findById").resolves(allProductsResponse[0]);
+
+      await controller.products.findById(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(allProductsResponse[0]);
+    });
+
     beforeEach(sinon.restore);
   });
 });
