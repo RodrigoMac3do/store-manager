@@ -13,14 +13,14 @@ describe("Testes de unidade do model de produtos", () => {
 
       expect(result).to.be.deep.equal(allProductsResponse);
     });
+    it("Lista produto por id com sucesso", async () => {
+      sinon.stub(connection, "execute").resolves([allProductsResponse]);
+
+      const [result] = await model.products.findById(1);
+
+      expect(result).to.be.deep.equal(allProductsResponse[0]);
+    });
+    
+    beforeEach(sinon.restore);
   });
-
-  it("Lista produto por id com sucesso", async () => {
-    sinon.stub(connection, "execute").resolves([allProductsResponse]);
-
-    const [result] = await model.products.findById(1);
-
-    expect(result).to.be.deep.equal(allProductsResponse[0]);
-  });
-  beforeEach(sinon.restore)
 });

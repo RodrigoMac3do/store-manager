@@ -29,6 +29,7 @@ describe("Testes de unidade do service de sales", () => {
         expect(error.status).to.be.deep.equal(404);
       }
     });
+    
     beforeEach(sinon.restore);
   });
 });
