@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 const model = require("../../../src/models");
 const service = require("../../../src/services");
-const { allProductsResponse } = require("../../unit/mocks/mockProducts");
+const { allProductsResponse } = require("../mocks/mockProducts");
 
 describe("Testes de unidade do service de produtos", () => {
   describe("Listar todos os produtos", () => {
@@ -32,3 +32,9 @@ describe("Testes de unidade do service de produtos", () => {
     beforeEach(sinon.restore);
   });
 });
+
+
+// /home/rodrigo/Documentos/Projects/sd-022-b-store-manager/tests/unit/controllers
+// /home/rodrigo/Documentos/Projects/sd-022-b-store-manager/tests/unit/mocks
+// /home/rodrigo/Documentos/Projects/sd-022-b-store-manager/tests/unit/models
+// /home/rodrigo/Documentos/Projects/sd-022-b-store-manager/tests/unit/services
