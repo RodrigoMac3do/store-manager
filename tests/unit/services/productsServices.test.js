@@ -22,7 +22,7 @@ describe("Testes de unidade do service de produtos", () => {
     });
     it("Listar produto por id sem sucesso", async () => {
       sinon.stub(model.products, "findById").resolves([]);
-      
+
       try {
         await service.products.findById(0);
       } catch (error) {
@@ -32,9 +32,3 @@ describe("Testes de unidade do service de produtos", () => {
     beforeEach(sinon.restore);
   });
 });
-
-
-// /home/rodrigo/Documentos/Projects/sd-022-b-store-manager/tests/unit/controllers
-// /home/rodrigo/Documentos/Projects/sd-022-b-store-manager/tests/unit/mocks
-// /home/rodrigo/Documentos/Projects/sd-022-b-store-manager/tests/unit/models
-// /home/rodrigo/Documentos/Projects/sd-022-b-store-manager/tests/unit/services
