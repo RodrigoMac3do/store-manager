@@ -10,7 +10,7 @@ chai.use(sinonChai);
 
 describe("Testes de unidade do controller de produtos", () => {
   describe("Listar todos os produtos", () => {
-    it("Listar todos os produtos com sucesso", async () => {
+    it("Listar todos os produtos com sucesso", async function () {
       const req = {};
       const res = {};
 

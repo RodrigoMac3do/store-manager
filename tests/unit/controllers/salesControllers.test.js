@@ -11,7 +11,7 @@ chai.use(sinonChai);
 
 describe("Testes de unidade do controller de sales", () => {
   describe("Listar todos os sales", () => {
-    it("Listar todos os sales com sucesso", async () => {
+    it("Listar todos os sales com sucesso", async function () {
       const req = {};
       const res = {};
 
