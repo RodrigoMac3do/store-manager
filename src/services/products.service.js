@@ -23,10 +23,13 @@ const insert = async (name) => {
   return newProduct;
 };
 
-const updateById = async ({ id, name }) => {
-  const update = await model.products.updateById({ id, name });
-
-  return update;
+const updateById = async (id, name) => {
+  const product = await model.products.findById(id);
+  if (product.length === 0) {
+    throw sendError(404, 'Product not found');
+  } else {
+    await model.products.updateById(id, name);
+  }
 };
 
 module.exports = {
