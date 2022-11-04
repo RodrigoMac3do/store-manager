@@ -32,9 +32,20 @@ const updateById = async (id, name) => {
   }
 };
 
+const remove = async (id) => {
+  const product = await model.products.findById(id);
+  
+  if (product.length === 0) {
+    throw sendError(404, 'Product not found');
+  } else {
+    await model.products.remove(id);
+  }
+};
+
 module.exports = {
   listAll,
   findById,
   insert,
   updateById,
+  remove,
 };
