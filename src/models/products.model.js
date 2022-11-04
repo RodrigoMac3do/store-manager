@@ -37,9 +37,21 @@ WHERE
   await connection.execute(query, [name, id]);
 };
 
+const remove = async (id) => {
+  const query = `
+DELETE FROM
+  StoreManager.products
+WHERE
+  id = ?
+`;
+
+  await connection.execute(query, [id]);
+};
+
 module.exports = {
   listAll,
   findById,
   insert,
   updateById,
+  remove,
 };
