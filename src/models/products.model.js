@@ -24,7 +24,7 @@ const insert = async (name) => {
   return insertId;
 };
 
-const updateById = async ({ id, name }) => {
+const updateById = async (id, name) => {
   const query = `
 UPDATE
   StoreManager.products
