@@ -13,5 +13,6 @@ router.post(
   middleware.product.valuesProduct,
   controller.sales.insert,
 );
+router.delete('/:id', controller.sales.remove);
 
 module.exports = router;

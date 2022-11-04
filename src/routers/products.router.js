@@ -12,5 +12,6 @@ router.put(
   middleware.nameProducts,
   controller.products.updateById,
 );
+router.delete('/:id', controller.products.remove);
 
 module.exports = router;
