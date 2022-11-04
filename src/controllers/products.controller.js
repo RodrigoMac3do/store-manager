@@ -48,9 +48,22 @@ const updateById = async (req, res, next) => {
   }
 };
 
+const remove = async (req, res, next) => {
+  const id = Number(req.params.id);
+  
+  try {
+    await service.products.remove(id);
+
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   listAll,
   findById,
   insert,
   updateById,
+  remove,
 };
