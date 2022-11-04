@@ -40,14 +40,9 @@ const updateById = async (req, res, next) => {
   const { name } = req.body;
 
   try {
-    await service.products.updateById({ id, name });
+    await service.products.updateById(id, name);
 
-    const productUpdated = {
-      id,
-      ...req.body,
-    };
-
-    res.status(200).json(productUpdated);
+    res.status(200).json({ id, name });
   } catch (error) {
     next(error);
   }
