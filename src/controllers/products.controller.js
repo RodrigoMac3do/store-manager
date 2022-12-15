@@ -1,21 +1,17 @@
 const service = require('../services');
 
-const findAll = async (_req, res, _next) => {
+const findAll = async (_req, res) => {
   const products = await service.products.findAll();
 
   res.status(200).json(products);
 };
 
-const findById = async (req, res, next) => {
+const findById = async (req, res) => {
   const id = Number(req.params.id);
 
-  try {
-    const product = await service.products.findById(id);
+  const product = await service.products.findById(id);
 
-    res.status(200).json(product);
-  } catch (error) {
-    next(error);
-  }
+  res.status(200).json(product);
 };
 
 const insert = async (req, res, next) => {
@@ -50,7 +46,7 @@ const updateById = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   const id = Number(req.params.id);
-  
+
   try {
     await service.products.remove(id);
 
