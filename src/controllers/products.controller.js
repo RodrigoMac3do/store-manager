@@ -1,4 +1,6 @@
 const service = require('../services');
+const { productSchema } = require('../services/validations/schema');
+const validateSchema = require('../services/validations/validationSchema');
 
 const findAll = async (_req, res) => {
   const products = await service.products.findAll();
@@ -14,21 +16,14 @@ const findById = async (req, res) => {
   res.status(200).json(product);
 };
 
-const insert = async (req, res, next) => {
-  const { name } = req.body;
-  const products = await service.products.listAll();
+const insert = async (req, res) => {
+  const { body } = req;
 
-  try {
-    await service.products.insert(name);
-    const newProduct = {
-      id: products.length + 1,
-      ...req.body,
-    };
+  await validateSchema(productSchema, body);
 
-    res.status(201).json(newProduct);
-  } catch (error) {
-    next(error);
-  }
+  const newProduct = await service.products.insert(body);
+
+  res.status(201).json(newProduct);
 };
 
 const updateById = async (req, res, next) => {
