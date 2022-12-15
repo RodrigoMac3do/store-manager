@@ -1,7 +1,7 @@
 const service = require('../services');
 
-const listAll = async (_req, res, _next) => {
-  const products = await service.products.listAll();
+const findAll = async (_req, res, _next) => {
+  const products = await service.products.findAll();
 
   res.status(200).json(products);
 };
@@ -61,7 +61,7 @@ const remove = async (req, res, next) => {
 };
 
 module.exports = {
-  listAll,
+  findAll,
   findById,
   insert,
   updateById,

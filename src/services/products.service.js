@@ -1,8 +1,8 @@
 const sendError = require('../utils/sendError');
 const model = require('../models');
 
-const listAll = async () => {
-  const products = await model.products.listAll();
+const findAll = async () => {
+  const products = await model.products.findAll();
 
   return products;
 };
@@ -25,6 +25,7 @@ const insert = async (name) => {
 
 const updateById = async (id, name) => {
   const product = await model.products.findById(id);
+  
   if (product.length === 0) {
     throw sendError(404, 'Product not found');
   } else {
@@ -43,7 +44,7 @@ const remove = async (id) => {
 };
 
 module.exports = {
-  listAll,
+  findAll,
   findById,
   insert,
   updateById,

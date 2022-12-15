@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const listAll = async () => {
+const findAll = async () => {
   const query = 'SELECT * FROM StoreManager.products';
 
   const [products] = await connection.execute(query);
@@ -49,7 +49,7 @@ WHERE
 };
 
 module.exports = {
-  listAll,
+  findAll,
   findById,
   insert,
   updateById,
