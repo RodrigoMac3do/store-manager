@@ -1,4 +1,4 @@
-const sendError = require('../utils/sendError');
+const httpException = require('../utils/http.exception');
 const model = require('../models');
 
 const findAll = async () => {
@@ -11,7 +11,7 @@ const findById = async (id) => {
   const [product] = await model.products.findById(id);
 
   if (product === undefined) {
-    throw sendError(404, 'Product not found');
+    throw httpException(404, 'Product not found');
   }
 
   return product;
@@ -25,9 +25,9 @@ const insert = async (name) => {
 
 const updateById = async (id, name) => {
   const product = await model.products.findById(id);
-  
+
   if (product.length === 0) {
-    throw sendError(404, 'Product not found');
+    throw httpException(404, 'Product not found');
   } else {
     await model.products.updateById(id, name);
   }
@@ -35,9 +35,9 @@ const updateById = async (id, name) => {
 
 const remove = async (id) => {
   const product = await model.products.findById(id);
-  
+
   if (product.length === 0) {
-    throw sendError(404, 'Product not found');
+    throw httpException(404, 'Product not found');
   } else {
     await model.products.remove(id);
   }
