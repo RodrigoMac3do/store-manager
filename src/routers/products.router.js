@@ -8,7 +8,7 @@ router.get('/', controller.products.findAll);
 
 router.get('/:id', controller.products.findById);
 
-router.post('/', middleware.name, controller.products.insert);
+router.post('/', controller.products.insert);
 
 router.put('/:id', middleware.nameProducts, controller.products.updateById);
 
