@@ -3,7 +3,7 @@ const controller = require('../controllers');
 
 const router = express.Router();
 
-router.get('/', controller.sales.listAll);
+router.get('/', controller.sales.findAll);
 
 router.get('/:id', controller.sales.findById);
 
