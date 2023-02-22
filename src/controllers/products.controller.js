@@ -16,10 +16,10 @@ const findById = async (req, res) => {
   res.status(200).json(product);
 };
 
-const search = async (req, res) => {
+const findByTerm = async (req, res) => {
   const { q } = req.query;
 
-  const product = await service.products.search(q);
+  const product = await service.products.findByTerm(q);
 
   res.status(200).json(product);
 };
@@ -58,7 +58,7 @@ const remove = async (req, res) => {
 module.exports = {
   findAll,
   findById,
-  search,
+  findByTerm,
   create,
   updateById,
   remove,
