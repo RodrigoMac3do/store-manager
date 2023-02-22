@@ -16,7 +16,7 @@ const findById = async (id) => {
   return product;
 };
 
-const insert = async (name) => {
+const create = async (name) => {
   const query = 'INSERT INTO StoreManager.products (name) VALUES (?)';
 
   const [{ insertId }] = await connection.execute(query, [name]);
@@ -39,7 +39,7 @@ const remove = async (id) => {
 module.exports = {
   findAll,
   findById,
-  insert,
+  create,
   updateById,
   remove,
 };
