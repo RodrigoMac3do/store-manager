@@ -41,13 +41,9 @@ const updateById = async (id, name) => {
 };
 
 const remove = async (id) => {
-  const product = await model.products.findById(id);
+  await findById(id);
 
-  if (product.length === 0) {
-    throw httpException(404, 'Product not found');
-  } else {
-    await model.products.remove(id);
-  }
+  await model.products.remove(id);
 };
 
 module.exports = {
