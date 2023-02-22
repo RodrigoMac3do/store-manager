@@ -16,12 +16,12 @@ const findById = async (req, res) => {
   res.status(200).json(product);
 };
 
-const insert = async (req, res) => {
+const create = async (req, res) => {
   const { body } = req;
 
   await validateSchema(productSchema, body);
 
-  const newProduct = await service.products.insert(body);
+  const newProduct = await service.products.create(body);
 
   res.status(201).json(newProduct);
 };
@@ -54,7 +54,7 @@ const remove = async (req, res, next) => {
 module.exports = {
   findAll,
   findById,
-  insert,
+  create,
   updateById,
   remove,
 };
