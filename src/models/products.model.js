@@ -1,12 +1,7 @@
 const connection = require('./connection');
 
 const findAll = async () => {
-  const query = `
-SELECT
-  *
-FROM
-  StoreManager.products
-`;
+  const query = 'SELECT * FROM StoreManager.products';
 
   const [products] = await connection.execute(query);
 
@@ -14,27 +9,15 @@ FROM
 };
 
 const findById = async (id) => {
-  const query = `
-SELECT
-  *
-FROM
-  StoreManager.products
-WHERE
-  id = ?
-`;
+  const query = 'SELECT * FROM StoreManager.products WHERE  id = ?';
 
-  const [product] = await connection.execute(query, [id]);
+  const [[product]] = await connection.execute(query, [id]);
 
   return product;
 };
 
 const insert = async (name) => {
-  const query = `
-INSERT INTO
-  StoreManager.products (name) 
-VALUES 
-  (?)
-`;
+  const query = 'INSERT INTO StoreManager.products (name) VALUES (?)';
 
   const [{ insertId }] = await connection.execute(query, [name]);
 
@@ -42,25 +25,13 @@ VALUES
 };
 
 const updateById = async (id, name) => {
-  const query = `
-UPDATE
-  StoreManager.products
-SET
-  name = ?
-WHERE
-  id = ?
-`;
+  const query = 'UPDATE StoreManager.products SET name = ? WHERE id = ?';
 
   await connection.execute(query, [name, id]);
 };
 
 const remove = async (id) => {
-  const query = `
-DELETE FROM
-  StoreManager.products
-WHERE
-  id = ?
-`;
+  const query = 'DELETE FROM StoreManager.products WHERE id = ?';
 
   await connection.execute(query, [id]);
 };
