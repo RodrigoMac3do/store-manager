@@ -2,10 +2,10 @@ const name = require('./validationName');
 const product = require('./validationProduct');
 const quantity = require('./validationQuantity');
 const nameProducts = require('./validationProductName');
-const httpError = require('./http.error.middleware');
+const httpErrorMiddleware = require('./http.error.middleware');
 
 module.exports = {
-  httpError,
+  httpErrorMiddleware,
   name,
   product,
   quantity,
