@@ -17,6 +17,14 @@ const findById = async (id) => {
   return product;
 };
 
+const search = async (q) => {
+  const product = await model.products.search(q);
+
+  if (!product) return findAll();
+
+  return product;
+};
+
 const create = async (body) => {
   const { name } = body;
 
@@ -49,6 +57,7 @@ const remove = async (id) => {
 module.exports = {
   findAll,
   findById,
+  search,
   create,
   updateById,
   remove,
