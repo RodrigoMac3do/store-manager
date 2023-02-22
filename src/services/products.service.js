@@ -17,10 +17,10 @@ const findById = async (id) => {
   return product;
 };
 
-const insert = async (body) => {
+const create = async (body) => {
   const { name } = body;
 
-  const id = await model.products.insert(name);
+  const id = await model.products.create(name);
 
   const newProduct = {
     id,
@@ -53,7 +53,7 @@ const remove = async (id) => {
 module.exports = {
   findAll,
   findById,
-  insert,
+  create,
   updateById,
   remove,
 };
