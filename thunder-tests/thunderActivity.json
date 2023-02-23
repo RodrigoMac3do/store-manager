@@ -4,16 +4,16 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/sales",
-    "url": "http://localhost:3000/sales",
-    "method": "POST",
+    "url": "http://localhost:3000/sales/1",
+    "method": "PUT",
     "sortNum": 0,
     "created": "2022-10-17T19:37:36.703Z",
-    "modified": "2022-10-17T20:59:59.111Z",
+    "modified": "2022-11-05T01:45:12.104Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 1\n  }\n]",
+      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 22,\n    \"quantity\": 1\n  }\n]",
       "form": []
     },
     "tests": []
@@ -28,6 +28,20 @@
     "sortNum": 0,
     "created": "2022-10-17T20:59:18.236Z",
     "modified": "2022-10-17T20:59:18.291Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "55d8432d-eeff-43d6-ad3e-6796a456d1e2",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/products/1",
+    "url": "http://localhost:3000/products/1",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2022-11-04T22:07:01.075Z",
+    "modified": "2022-11-04T22:09:16.836Z",
     "headers": [],
     "params": [],
     "tests": []
