@@ -1,55 +1,54 @@
 const service = require('../services');
+const { saleSchema } = require('../services/validations/schema');
+const validateSchema = require('../services/validations/validationSchema');
 
-const listAll = async (_req, res, _next) => {
-  const sales = await service.sales.listAll();
+const findAll = async (_req, res) => {
+  const sales = await service.sales.findAll();
 
   res.status(200).json(sales);
 };
 
-const findById = async (req, res, next) => {
+const findById = async (req, res) => {
   const id = Number(req.params.id);
 
-  try {
-    const sale = await service.sales.findById(id);
+  const sale = await service.sales.findById(id);
 
-    res.status(200).json(sale);
-  } catch (error) {
-    next(error);
-  }
+  res.status(200).json(sale);
 };
 
-const insert = async (req, res, next) => {
-  const produtos = req.body;
+const create = async (req, res) => {
+  const { body } = req;
 
-  try {
-    const id = await service.sales.insert(produtos);
+  await validateSchema(saleSchema, body);
 
-    const newSale = {
-      id,
-      itemsSold: [...produtos],
-    };
+  const newSale = await service.sales.create(body);
 
-    res.status(201).json(newSale);
-  } catch (error) {
-    next(error);
-  }
+  res.status(201).json(newSale);
 };
 
-const remove = async (req, res, next) => {
+const updateById = async (req, res) => {
+  const id = Number(req.params.id);
+  const { body } = req;
+
+  await validateSchema(saleSchema, body);
+
+  const productUpdated = await service.sales.updateById(id, body);
+
+  res.status(200).json(productUpdated);
+};
+
+const remove = async (req, res) => {
   const id = Number(req.params.id);
 
-  try {
-    await service.sales.remove(id);
+  await service.sales.remove(id);
 
-    res.sendStatus(204);
-  } catch (error) {
-    next(error);
-  }
+  res.sendStatus(204);
 };
 
 module.exports = {
-  listAll,
+  findAll,
   findById,
-  insert,
+  create,
+  updateById,
   remove,
 };
