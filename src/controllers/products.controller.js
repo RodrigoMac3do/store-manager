@@ -34,17 +34,15 @@ const create = async (req, res) => {
   res.status(201).json(newProduct);
 };
 
-const updateById = async (req, res, next) => {
+const updateById = async (req, res) => {
   const id = Number(req.params.id);
-  const { name } = req.body;
+  const { body } = req;
 
-  try {
-    await service.products.updateById(id, name);
+  await validateSchema(productSchema, body);
 
-    res.status(200).json({ id, name });
-  } catch (error) {
-    next(error);
-  }
+  const product = await service.products.updateById(id, body);
+
+  res.status(200).json(product);
 };
 
 const remove = async (req, res) => {
