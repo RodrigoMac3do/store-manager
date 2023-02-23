@@ -1,6 +1,5 @@
 const express = require('express');
 const controller = require('../controllers');
-const middleware = require('../middlewares');
 
 const router = express.Router();
 
@@ -12,7 +11,7 @@ router.get('/:id', controller.products.findById);
 
 router.post('/', controller.products.create);
 
-router.put('/:id', middleware.nameProducts, controller.products.updateById);
+router.put('/:id', controller.products.updateById);
 
 router.delete('/:id', controller.products.remove);
 
