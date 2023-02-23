@@ -16,16 +16,7 @@ const mapStatusCode = (errorMessage) => {
   return statusCode.ACCESS_DENIED;
 };
 
-const mapMessage = (errorMessage) => {
-  if (errorMessage.includes('name')) {
-    return errorMessage;
-  }
-
-  return errorMessage;
-};
-
 module.exports = {
   statusCode,
   mapStatusCode,
-  mapMessage,
 };
