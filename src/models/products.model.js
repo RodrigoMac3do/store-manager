@@ -36,6 +36,8 @@ const updateById = async (id, name) => {
   const query = 'UPDATE StoreManager.products SET name = ? WHERE id = ?';
 
   await connection.execute(query, [name, id]);
+
+  return findById(id);
 };
 
 const remove = async (id) => {
