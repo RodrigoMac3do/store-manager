@@ -38,14 +38,14 @@ const create = async (body) => {
   return newProduct;
 };
 
-const updateById = async (id, name) => {
-  const product = await model.products.findById(id);
+const updateById = async (id, body) => {
+  const { name } = body;
 
-  if (product.length === 0) {
-    throw httpException(404, 'Product not found');
-  } else {
-    await model.products.updateById(id, name);
-  }
+  await findById(id);
+
+  const product = await model.products.updateById(id, name);
+
+  return product;
 };
 
 const remove = async (id) => {
