@@ -7,7 +7,7 @@ router.get('/', controller.sales.findAll);
 
 router.get('/:id', controller.sales.findById);
 
-router.post('/', controller.sales.insert);
+router.post('/', controller.sales.create);
 
 router.put('/:id', controller.sales.updateById);
 
