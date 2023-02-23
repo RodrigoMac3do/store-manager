@@ -1,82 +1,85 @@
+const camelize = require('camelize');
 const connection = require('./connection');
 
-const listAll = async () => {
+const findAll = async () => {
   const query = `
-SELECT
-  s_p.sale_id AS saleId,
-  s.date,
-  s_p.product_id AS productId,
-  s_p.quantity
-FROM
-  StoreManager.sales AS s
-  INNER JOIN StoreManager.sales_products AS s_p ON s_p.sale_id = s.id
-ORDER BY
-  sale_id ASC,
-  product_id ASC
-`;
+  SELECT
+    *
+  FROM
+    StoreManager.sales AS s
+    INNER JOIN StoreManager.sales_products AS s_p ON s_p.sale_id = s.id
+ `;
 
   const [sales] = await connection.execute(query);
 
-  return sales;
+  return camelize(sales);
 };
 
 const findById = async (id) => {
   const query = `
-SELECT
-  s.date,
-  s_p.product_id AS productId,
-  s_p.quantity
-FROM
-  StoreManager.sales AS s
-  INNER JOIN StoreManager.sales_products AS s_p ON s_p.sale_id = s.id
-WHERE sale_id = ?
-ORDER BY
-  sale_id ASC,
-  product_id ASC
-`;
+  SELECT
+    s.date,
+    s_p.product_id,
+    s_p.quantity
+  FROM
+    StoreManager.sales AS s
+      INNER JOIN StoreManager.sales_products AS s_p ON s_p.sale_id = s.id
+  WHERE 
+    sale_id = ?
+  `;
 
   const [sale] = await connection.execute(query, [id]);
 
-  return sale;
+  return camelize(sale);
 };
 
-const insert = async (produtos) => {
-  const insertSale = 'INSERT INTO StoreManager.sales () VALUES ()';
+const createSale = async () => {
+  const newSale = 'INSERT INTO StoreManager.sales () VALUES ()';
 
-  const [{ insertId }] = await connection.execute(insertSale);
-
-  const insertProduct = `
-INSERT INTO StoreManager.sales_products
-  (product_id, quantity, sale_id)
-VALUES
-  ?
-`;
-
-  const arrayProdutos = produtos.map((produto) => [
-    produto.productId,
-    produto.quantity,
-    insertId,
-  ]);
-  
-  await connection.query(insertProduct, [arrayProdutos]);
+  const [{ insertId }] = await connection.execute(newSale);
 
   return insertId;
 };
 
-const remove = async (id) => {
+const create = async ({ productId, quantity, id }) => {
+  const insertProduct = `
+  INSERT INTO StoreManager.sales_products 
+    (product_id, quantity, sale_id)
+  VALUES
+    (?, ?, ?)
+  `;
+
+  await connection.execute(insertProduct, [productId, quantity, id]);
+};
+
+const updateById = async (id, lista) => {
+  const { productId, quantity } = lista;
+
   const query = `
-DELETE FROM
-  StoreManager.sales
-WHERE
-  id = ?
-`;
+  UPDATE
+    StoreManager.sales_products
+  SET
+    quantity = ?
+  WHERE
+    sale_id = ?
+  AND 
+    product_id = ?
+  `;
+
+  await connection.execute(query, [quantity, id, productId]);
+};
+
+const remove = async (id) => {
+  const query = 'DELETE FROM StoreManager.sales WHERE id = ?';
 
   await connection.execute(query, [id]);
 };
 
 module.exports = {
-  listAll,
+  findAll,
   findById,
-  insert,
+  createSale,
+  create,
+  updateById,
   remove,
 };
