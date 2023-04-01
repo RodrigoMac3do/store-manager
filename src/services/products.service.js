@@ -43,9 +43,9 @@ const updateById = async (id, body) => {
 
   await findById(id);
 
-  const product = await model.products.updateById(id, name);
+  await model.products.updateById(id, name);
 
-  return product;
+  return findById(id);
 };
 
 const remove = async (id) => {
