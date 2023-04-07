@@ -51,7 +51,9 @@ const updateById = async (id, body) => {
 const remove = async (id) => {
   await findById(id);
 
-  await model.products.remove(id);
+  const message = await model.products.remove(id);
+
+  return message;
 };
 
 module.exports = {
