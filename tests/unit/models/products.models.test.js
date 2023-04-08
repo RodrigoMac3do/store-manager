@@ -4,8 +4,10 @@ const connection = require("../../../src/models/connection");
 const model = require("../../../src/models");
 const { allProductsResponse } = require("../mocks/mockProducts");
 
-describe("Testes de unidade do model de produtos", function () {
-  describe("Funções da model de produto", function () {
+describe("Testes de unidade da model de produtos", function () {
+  beforeEach(sinon.restore);
+
+  describe("Teste para listagem de produtos", function () {
     it("Lista todos os produtos", async function () {
       sinon.stub(connection, "execute").resolves([allProductsResponse]);
 
@@ -29,7 +31,9 @@ describe("Testes de unidade do model de produtos", function () {
 
       expect(result).to.be.deep.equal(allProductsResponse[0]);
     });
+  });
 
+  describe("Teste para criação de produtos", function () {
     it("Criação de produto", async function () {
       sinon.stub(connection, "execute").resolves([{ insertId: 4 }]);
 
@@ -37,7 +41,9 @@ describe("Testes de unidade do model de produtos", function () {
 
       expect(insertId).to.be.equal(4);
     });
+  });
 
+  describe("Teste para atualização de produtos", function () {
     it("Atualização de produto", async function () {
       sinon.stub(connection, "execute").resolves([{ changedRows: 1 }]);
 
@@ -45,7 +51,9 @@ describe("Testes de unidade do model de produtos", function () {
 
       expect(message.changedRows).to.be.equal(1);
     });
+  });
 
+  describe("Teste para excluir produtos", function () {
     it("Deleta produto por id", async function () {
       sinon.stub(connection, "execute").resolves([{ affectedRows: 1 }]);
 
@@ -53,7 +61,5 @@ describe("Testes de unidade do model de produtos", function () {
 
       expect(message.affectedRows).to.be.equal(1);
     });
-
-    beforeEach(sinon.restore);
   });
 });

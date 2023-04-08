@@ -35,11 +35,20 @@ describe("Testes de unidade da service de produtos", function () {
     });
 
     it("Listar produto por termo inexistente", async function () {
-      sinon.stub(model.products, "findByTerm").resolves([allProductsResponse]);
+      sinon.stub(model.products, "findByTerm").resolves([]);
 
-      const [result] = await service.products.findByTerm("Traje do Batman");
+      const result = await service.products.findByTerm("Traje do Batman");
 
-      expect(result).to.be.deep.equal(allProductsResponse);
+      expect(result).length(0);
+      expect(result).to.be.deep.equal([]);
+    });
+
+    it("Listar produto sem passar termo", async function () {
+      sinon.stub(model.products, "findByTerm").resolves(allProductsResponse);
+
+      const result = await service.products.findByTerm();
+
+      expect(result).to.be.equal(allProductsResponse);
     });
 
     it("Listar produto por id inexistente", async function () {

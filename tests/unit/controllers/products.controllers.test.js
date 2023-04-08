@@ -7,13 +7,16 @@ const {
   allProductsResponse,
   productCreateResponse,
 } = require("../mocks/mockProducts");
+
 const { expect } = chai;
 
 chai.use(sinonChai);
 
-describe("Testes de unidade do controller de produtos", () => {
-  describe("Listar todos os produtos", () => {
-    it("Listar todos os produtos com sucesso", async function () {
+describe("Testes de unidade do controller de produtos", function () {
+  beforeEach(sinon.restore);
+
+  describe("Teste para listagem de produtos", function () {
+    it("Listar todos os produtos", async function () {
       const req = {};
       const res = {};
 
@@ -28,7 +31,7 @@ describe("Testes de unidade do controller de produtos", () => {
       expect(res.json).to.have.been.calledWith(allProductsResponse);
     });
 
-    it("Listar produto por id com sucesso", async function () {
+    it("Listar produto por id", async function () {
       const req = {
         params: {
           id: 1,
@@ -67,7 +70,9 @@ describe("Testes de unidade do controller de produtos", () => {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(allProductsResponse[1]);
     });
+  });
 
+  describe("Teste para criação de produtos", function () {
     it("Criar produto ", async function () {
       const req = {
         body: {
@@ -86,7 +91,9 @@ describe("Testes de unidade do controller de produtos", () => {
       expect(res.status).to.have.been.calledWith(201);
       expect(res.json).to.have.been.calledWith(productCreateResponse);
     });
+  });
 
+  describe("Teste para atualização de produtos", function () {
     it("Atualizar produto ", async function () {
       const req = {
         params: {
@@ -114,7 +121,9 @@ describe("Testes de unidade do controller de produtos", () => {
         name: "Produto Y",
       });
     });
+  });
 
+  describe("Teste para excluir produtos", function () {
     it("Deleta produto por id", async function () {
       const req = {
         params: {
@@ -131,7 +140,5 @@ describe("Testes de unidade do controller de produtos", () => {
 
       expect(res.sendStatus).to.have.been.calledWith(204);
     });
-
-    beforeEach(sinon.restore);
   });
 });
