@@ -20,8 +20,6 @@ const findById = async (id) => {
 const findByTerm = async (q) => {
   const product = await model.products.findByTerm(q);
 
-  if (!product) return findAll();
-
   return product;
 };
 
