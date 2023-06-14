@@ -23,6 +23,19 @@ const saleCreateResponse = {
     { productId: 2, quantity: 5 },
   ],
 };
+const saleUpdateResponse = {
+  saleId: 1,
+  itemsUpdated: [
+    {
+      productId: 1,
+      quantity: 10,
+    },
+    {
+      productId: 2,
+      quantity: 50,
+    },
+  ],
+};
 
 const allSales = [
   {
@@ -45,6 +58,17 @@ const allSales = [
   },
 ];
 
+const saleWithoutProducId = [
+  {
+    productI: 1,
+    quantity: 10,
+  },
+  {
+    productId: 2,
+    quantity: 10,
+  },
+];
+
 module.exports = {
   wrongSaleNotProductIdBody,
   wrongSaleNotQuantityBody,
@@ -56,4 +80,6 @@ module.exports = {
   rightSaleBody,
   saleCreateResponse,
   allSales,
+  saleUpdateResponse,
+  saleWithoutProducId,
 };
