@@ -1,6 +1,6 @@
 const service = require('../services');
-const { productSchema } = require('../services/validations/schema');
-const validateSchema = require('../services/validations/validationSchema');
+const { productSchema } = require('../helpers/schema');
+const validateSchema = require('../helpers/validationSchema');
 
 const findAll = async (_req, res) => {
   const products = await service.products.findAll();
@@ -35,20 +35,24 @@ const create = async (req, res) => {
 };
 
 const updateById = async (req, res) => {
-  const id = Number(req.params.id);
-  const { body } = req;
+  const {
+    params: { id },
+    body,
+  } = req;
 
   await validateSchema(productSchema, body);
 
-  const product = await service.products.updateById(id, body);
+  const product = await service.products.updateById(+id, body);
 
   res.status(200).json(product);
 };
 
 const remove = async (req, res) => {
-  const id = Number(req.params.id);
+  const {
+    params: { id },
+  } = req;
 
-  await service.products.remove(id);
+  await service.products.remove(+id);
 
   res.sendStatus(204);
 };
