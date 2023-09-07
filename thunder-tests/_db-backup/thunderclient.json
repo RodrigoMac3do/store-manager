@@ -159,16 +159,16 @@
     "colId": "0d75114d-3d06-466a-9981-fcffe96bdc86",
     "containerId": "",
     "name": "Listagem de produto por termo",
-    "url": "http://localhost:3000/products/search?q=produtoX",
+    "url": "http://localhost:3000/products/search?q=Traje de encolhimento",
     "method": "GET",
     "sortNum": 13437.5,
     "created": "2022-10-18T17:21:37.892Z",
-    "modified": "2023-02-22T16:11:38.883Z",
+    "modified": "2023-04-08T19:54:12.878Z",
     "headers": [],
     "params": [
       {
         "name": "q",
-        "value": "produtoX",
+        "value": "Traje de encolhimento",
         "isPath": false
       }
     ],
@@ -183,7 +183,7 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2022-10-18T17:21:37.893Z",
-    "modified": "2023-02-23T18:18:32.733Z",
+    "modified": "2023-04-09T00:11:12.913Z",
     "headers": [],
     "params": [],
     "body": {
@@ -202,12 +202,12 @@
     "method": "PUT",
     "sortNum": 13593.8,
     "created": "2022-11-01T23:18:29.150Z",
-    "modified": "2023-02-23T14:21:44.556Z",
+    "modified": "2023-04-05T00:08:24.524Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"ProdutoB\"\n}",
+      "raw": "{\n  \"name\": \"Produto Y\"\n}",
       "form": []
     },
     "tests": []
@@ -268,7 +268,7 @@
     "method": "GET",
     "sortNum": 13125,
     "created": "2023-02-22T15:54:44.538Z",
-    "modified": "2023-02-23T17:11:20.510Z",
+    "modified": "2023-04-01T13:23:19.354Z",
     "headers": [],
     "params": [],
     "tests": []
