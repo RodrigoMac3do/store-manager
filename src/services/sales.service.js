@@ -60,7 +60,7 @@ const updateById = async (id, body) => {
 const remove = async (id) => {
   await findById(id);
 
-  await model.sales.remove(id);
+  return model.sales.remove(id);
 };
 
 module.exports = {
