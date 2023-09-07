@@ -15,8 +15,22 @@ const { expect } = chai;
 chai.use(sinonChai);
 
 describe("Testes de unidade do controller de sales", () => {
+  let stubFindAllSales;
+  let stubFindByIdSales;
+  let stubCreateSales;
+  let stubUpdateByIdSales;
+  let stubRemoveSales;
+
   beforeEach(() => {
-    sinon.restore;
+    stubFindAllSales = sinon.stub(service.sales, "findAll");
+    stubFindByIdSales = sinon.stub(service.sales, "findById");
+    stubCreateSales = sinon.stub(service.sales, "create");
+    stubUpdateByIdSales = sinon.stub(service.sales, "updateById");
+    stubRemoveSales = sinon.stub(service.sales, "remove");
+  });
+
+  afterEach(() => {
+    sinon.restore();
   });
 
   describe("Teste para listagem de sales", () => {
@@ -27,7 +41,7 @@ describe("Testes de unidade do controller de sales", () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(service.sales, "findAll").resolves(allSales);
+      stubFindAllSales.resolves(allSales);
 
       await controller.sales.findAll(req, res);
 
@@ -45,7 +59,7 @@ describe("Testes de unidade do controller de sales", () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(service.sales, "findById").resolves(allSales[0]);
+      stubFindByIdSales.resolves(allSales[0]);
 
       await controller.sales.findById(req, res);
 
@@ -64,30 +78,13 @@ describe("Testes de unidade do controller de sales", () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(service.sales, "create").resolves(saleCreateResponse);
+      stubCreateSales.resolves(saleCreateResponse);
 
       await controller.sales.create(req, res);
 
       expect(res.status).to.have.been.calledWith(201);
       expect(res.json).to.have.been.calledWith(saleCreateResponse);
     });
-
-    // it("Teste de joi para criar sale", async function () {
-    //   const req = {
-    //     body: rightSaleBody,
-    //   };
-    //   const res = {};
-
-    //   res.status = sinon.stub().returns(res);
-    //   res.json = sinon.stub().returns();
-
-    //   try {
-    //     await controller.sales.create(req, res);
-    //   } catch (error) {
-    //     expect(error.status).to.be.deep.equal(401);
-    //     expect(error.message).to.be.deep.equals('"productId" is required');
-    //   }
-    // });
   });
 
   describe("Teste para atualização de sale", function () {
@@ -103,7 +100,7 @@ describe("Testes de unidade do controller de sales", () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(service.sales, "updateById").resolves(saleUpdateResponse);
+      stubUpdateByIdSales.resolves(saleUpdateResponse);
 
       await controller.sales.updateById(req, res);
 
@@ -123,7 +120,7 @@ describe("Testes de unidade do controller de sales", () => {
 
       res.sendStatus = sinon.stub().returns(res);
 
-      sinon.stub(service.sales, "remove").resolves();
+      stubRemoveSales.resolves();
 
       await controller.sales.remove(req, res);
 

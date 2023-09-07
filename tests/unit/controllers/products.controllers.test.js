@@ -13,7 +13,25 @@ const { expect } = chai;
 chai.use(sinonChai);
 
 describe("Testes de unidade do controller de produtos", function () {
-  beforeEach(sinon.restore);
+  let stubFindAllProducts;
+  let stubFindByIdProducts;
+  let stubFindByTermProducts;
+  let stubCreateProducts;
+  let stubUpdateByIdProducts;
+  let stubRemoveProducts;
+
+  beforeEach(() => {
+    stubFindAllProducts = sinon.stub(service.products, "findAll");
+    stubFindByIdProducts = sinon.stub(service.products, "findById");
+    stubFindByTermProducts = sinon.stub(service.products, "findByTerm");
+    stubCreateProducts = sinon.stub(service.products, "create");
+    stubUpdateByIdProducts = sinon.stub(service.products, "updateById");
+    stubRemoveProducts = sinon.stub(service.products, "remove");
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
 
   describe("Teste para listagem de produtos", function () {
     it("Listar todos os produtos", async function () {
@@ -23,7 +41,7 @@ describe("Testes de unidade do controller de produtos", function () {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(service.products, "findAll").resolves(allProductsResponse);
+      stubFindAllProducts.resolves(allProductsResponse);
 
       await controller.products.findAll(req, res);
 
@@ -42,7 +60,7 @@ describe("Testes de unidade do controller de produtos", function () {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(service.products, "findById").resolves(allProductsResponse[0]);
+      stubFindByIdProducts.resolves(allProductsResponse[0]);
 
       await controller.products.findById(req, res);
 
@@ -61,9 +79,7 @@ describe("Testes de unidade do controller de produtos", function () {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon
-        .stub(service.products, "findByTerm")
-        .resolves(allProductsResponse[1]);
+      stubFindByTermProducts.resolves(allProductsResponse[1]);
 
       await controller.products.findByTerm(req, res);
 
@@ -84,7 +100,7 @@ describe("Testes de unidade do controller de produtos", function () {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(service.products, "create").resolves(productCreateResponse);
+      stubCreateProducts.resolves(productCreateResponse);
 
       await controller.products.create(req, res);
 
@@ -108,7 +124,7 @@ describe("Testes de unidade do controller de produtos", function () {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(service.products, "updateById").resolves({
+      stubUpdateByIdProducts.resolves({
         id: 1,
         name: "Produto Y",
       });
@@ -134,7 +150,7 @@ describe("Testes de unidade do controller de produtos", function () {
 
       res.sendStatus = sinon.stub().returns(res);
 
-      sinon.stub(service.products, "remove").resolves();
+      stubRemoveProducts.resolves();
 
       await controller.products.remove(req, res);
 
