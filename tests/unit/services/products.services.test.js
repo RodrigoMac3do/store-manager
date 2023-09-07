@@ -3,13 +3,32 @@ const sinon = require("sinon");
 const model = require("../../../src/models");
 const service = require("../../../src/services");
 const { allProductsResponse } = require("../mocks/mockProducts");
+const { allSales } = require("../mocks/mockSales");
 
 describe("Testes de unidade da service de produtos", function () {
-  beforeEach(sinon.restore);
+  let stubFindAllProducts;
+  let stubFindByIdProducts;
+  let stubRemoveProducts;
+  let stubFindByTermProducts;
+  let stubCreateProducts;
+  let stubUpdateByIdProducts;
+
+  beforeEach(() => {
+    stubFindAllProducts = sinon.stub(model.products, "findAll");
+    stubFindByIdProducts = sinon.stub(model.products, "findById");
+    stubRemoveProducts = sinon.stub(model.products, "remove");
+    stubFindByTermProducts = sinon.stub(model.products, "findByTerm");
+    stubCreateProducts = sinon.stub(model.products, "create");
+    stubUpdateByIdProducts = sinon.stub(model.products, "updateById");
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
 
   describe("Teste para listagem de produtos", function () {
     it("Listar todos os produtos", async function () {
-      sinon.stub(model.products, "findAll").resolves(allProductsResponse);
+      stubFindAllProducts.resolves(allProductsResponse);
 
       const result = await service.products.findAll();
 
@@ -17,7 +36,7 @@ describe("Testes de unidade da service de produtos", function () {
     });
 
     it("Listar produto por id", async function () {
-      sinon.stub(model.products, "findById").resolves(allProductsResponse);
+      stubFindByIdProducts.resolves(allProductsResponse);
 
       const [result] = await service.products.findById(1);
 
@@ -25,7 +44,7 @@ describe("Testes de unidade da service de produtos", function () {
     });
 
     it("Listar produto por termo", async function () {
-      sinon.stub(model.products, "findByTerm").resolves([allProductsResponse]);
+      stubFindByTermProducts.resolves([allProductsResponse]);
 
       const [result] = await service.products.findByTerm(
         "Traje de encolhimento"
@@ -35,7 +54,7 @@ describe("Testes de unidade da service de produtos", function () {
     });
 
     it("Listar produto por termo inexistente", async function () {
-      sinon.stub(model.products, "findByTerm").resolves([]);
+      stubFindByTermProducts.resolves([]);
 
       const result = await service.products.findByTerm("Traje do Batman");
 
@@ -44,7 +63,7 @@ describe("Testes de unidade da service de produtos", function () {
     });
 
     it("Listar produto sem passar termo", async function () {
-      sinon.stub(model.products, "findByTerm").resolves(allProductsResponse);
+      stubFindByTermProducts.resolves(allProductsResponse);
 
       const result = await service.products.findByTerm();
 
@@ -52,7 +71,7 @@ describe("Testes de unidade da service de produtos", function () {
     });
 
     it("Listar produto por id inexistente", async function () {
-      sinon.stub(model.products, "findById").resolves();
+      stubFindByIdProducts.resolves();
 
       try {
         await service.products.findById(0);
@@ -65,7 +84,7 @@ describe("Testes de unidade da service de produtos", function () {
 
   describe("Teste para criação de produtos", function () {
     it("Criar produtos", async function () {
-      sinon.stub(model.products, "create").resolves(4);
+      stubCreateProducts.resolves(4);
 
       const result = await service.products.create({ name: "Produto X" });
 
@@ -75,10 +94,9 @@ describe("Testes de unidade da service de produtos", function () {
 
   describe("Teste para atualização de produtos", function () {
     it("Criar produtos", async function () {
-      sinon.stub(model.products, "updateById").resolves([{ changedRows: 1 }]);
-      sinon
-        .stub(model.products, "findById")
-        .resolves({ id: 1, name: "Produto Y" });
+      stubUpdateByIdProducts.resolves([{ changedRows: 1 }]);
+
+      stubFindByIdProducts.resolves({ id: 1, name: "Produto Y" });
 
       await service.products.updateById(1, "Produto Y");
 
@@ -90,13 +108,22 @@ describe("Testes de unidade da service de produtos", function () {
 
   describe("Teste para excluir produtos", function () {
     it("Deleta produto por id", async function () {
-      sinon.stub(model.products, "remove").resolves({
-        affectedRows: 1,
-      });
+      stubFindByIdProducts.resolves(allSales[0]);
+      stubRemoveProducts.resolves({ affectedRows: 1 });
 
       const result = await service.products.remove(1);
 
       expect(result.affectedRows).to.be.deep.equal(1);
+    });
+    it("Deve lançar uma exceção ao tentar remover uma venda inexistente", async function () {
+      stubFindByIdProducts.resolves([]);
+
+      try {
+        await service.products.remove(1);
+      } catch (error) {
+        expect(error.status).to.equal(404);
+        expect(error.message).to.equal("Product not found");
+      }
     });
   });
 });
